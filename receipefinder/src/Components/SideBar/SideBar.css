@@ -1,0 +1,47 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Sidebar starts hidden */
+    width: 250px;
+    height: 100%;
+    background-color: #3700b3;
+    color: #fff;
+    padding: 20px;
+    transition: left 0.3s ease; /* Smooth slide-in animation */
+    z-index: 1000;
+  }
+  
+  .sidebar.open {
+    left: 0; /* Sidebar slides into view */
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+  }
+  
+  .sidebar-menu li {
+    margin: 15px 0;
+  }
+  
+  .sidebar-menu a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .sidebar-menu a:hover {
+    text-decoration: underline;
+  }
+  

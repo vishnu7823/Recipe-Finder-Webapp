@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #6200ea;
+    color: #fff;
+  }
+  
+  .navbar-left, .navbar-center, .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .app-name {
+    font-size: 1.5rem;
+    margin-left: 10px;
+  }
+  
+  .menu-btn, .search-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .search-input {
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 1rem;
+  }
+  
+  .filter-dropdown {
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 1rem;
+  }
+  
+  .nav-link {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
