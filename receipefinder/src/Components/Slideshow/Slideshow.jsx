@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
 import "./Slideshow.css";
+import Choices from '../Choices/Choices';
 
 
 const Slideshow = ()=> {
@@ -39,7 +40,7 @@ const Slideshow = ()=> {
       
     </div>
  
-
+    <Choices/>
 
     </>
   )

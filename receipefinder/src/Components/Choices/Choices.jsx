@@ -12,13 +12,14 @@ const Choices = ()=> {
   ];
   return (
     <div className='cards-row'>
-      {cards.map((card,index)=>{
+      {cards.map((card,index)=>(
         <div key={index} className='card' style={{backgroundColor: card.color}} >
 
           <span>{card.text}</span>
           <span className='arw'>➔</span>
         </div>
-      })}
+      
+    ))}
     </div>
   )
 }
