@@ -1,0 +1,104 @@
+.full-footer {
+    width: 100%;
+    background-color: #f8f8f8; /* Light background for footer */
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center; /* Center the footer content horizontally */
+  }
+  
+  .footer {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between; /* Space between columns */
+    align-items: flex-start; /* Align items at the top */
+    flex-wrap: wrap; /* Enable wrapping for smaller screens */
+    gap: 20px; /* Add spacing between columns */
+  }
+  
+  .title,
+  .company,
+  .resources,
+  .subscribe {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  ul li:hover {
+    color: #007bff; /* Highlight on hover */
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  /* Center the social links */
+  .social-links {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0; /* Space below the full-footer */
+  }
+  
+  .social-links .anticon {
+    font-size: 24px;
+    color: #555;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .social-links .anticon:hover {
+    color: #007bff; /* Highlight on hover */
+  }
+  

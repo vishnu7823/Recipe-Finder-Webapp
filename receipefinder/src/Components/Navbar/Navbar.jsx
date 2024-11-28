@@ -1,13 +1,27 @@
 import React,{useState} from "react";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({setSearchTerm , setFilter}) => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen); // Toggle between open and closed states
   };
+
+  const[query , setQuery] = useState("");
+  const[filter,setFilterState] = useState("all");
+
+  const handlesearchChange  = (e)=>{
+    setQuery(e.target.value);
+    setSearchTerm(e.target.value);
+
+  };
+
+  const handlefilterChange = (e)=>{
+    setFilterState(e.target.value);
+    setFilter(e.target.value);
+  }
 
   return (
     <nav className="navbar">
@@ -18,9 +32,9 @@ const Navbar = () => {
         <h1 className="app-name">Food Recipe Finder</h1>
       </div>
       <div className="navbar-center">
-        <input type="text" placeholder="Search recipes..." className="search-input" />
-        <select className="filter-dropdown">
-          <option value="">All</option>
+        <input type="text" placeholder="Search recipes..." className="search-input" value={query} onChange={handlesearchChange}/>
+        <select className="filter-dropdown" value={filter} onChange={handlefilterChange}>
+          <option value="all">All</option>
           <option value="vegetarian">Vegetarian</option>
           <option value="vegan">Vegan</option>
           <option value="gluten-free">Gluten-Free</option>
