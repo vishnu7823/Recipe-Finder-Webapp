@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import "./Navbar.css";
 
-const Navbar = ({setSearchTerm , setFilter}) => {
+const Navbar = ({onSearch , onFilterChange}) => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -9,18 +9,19 @@ const Navbar = ({setSearchTerm , setFilter}) => {
     setIsSidebarOpen(!isSidebarOpen); // Toggle between open and closed states
   };
 
-  const[query , setQuery] = useState("");
-  const[filter,setFilterState] = useState("all");
+  const[searchTerm , setSearchTerm] = useState("");
+  const[selectedFilter,setSelectedFilter] = useState("all");
 
-  const handlesearchChange  = (e)=>{
-    setQuery(e.target.value);
-    setSearchTerm(e.target.value);
+  const handlesearch  = ()=>{
+    
+    onSearch(searchTerm);
 
   };
 
   const handlefilterChange = (e)=>{
-    setFilterState(e.target.value);
-    setFilter(e.target.value);
+    const filter = e.target.value;
+    setSelectedFilter(filter);
+    onFilterChange(filter);
   }
 
   return (
@@ -32,14 +33,14 @@ const Navbar = ({setSearchTerm , setFilter}) => {
         <h1 className="app-name">Food Recipe Finder</h1>
       </div>
       <div className="navbar-center">
-        <input type="text" placeholder="Search recipes..." className="search-input" value={query} onChange={handlesearchChange}/>
-        <select className="filter-dropdown" value={filter} onChange={handlefilterChange}>
+        <input type="text" placeholder="Search recipes..." className="search-input" value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)}/>
+        <select className="filter-dropdown" value={selectedFilter} onChange={handlefilterChange}>
           <option value="all">All</option>
           <option value="vegetarian">Vegetarian</option>
           <option value="vegan">Vegan</option>
           <option value="gluten-free">Gluten-Free</option>
         </select>
-        <button className="search-btn">Search</button>
+        <button className="search-btn" onClick={handlesearch}>Search</button>
       </div>
       <div className="navbar-right">
         <a href="/" className="nav-link">Home</a>

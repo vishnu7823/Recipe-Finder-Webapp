@@ -9,12 +9,21 @@ import Footer from './Components/Footer/Footer'
 function App() {
 
   const [searchTerm,setSearchTerm] = useState("");
-  const[filter,setFilter] = useState("all");
+  const[selectedFilter,setSelectedFilter] = useState("all");
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
+
   return (
     <div>
-      <Navbar setSearchTerm={setSearchTerm} setFilter={setFilter}/>
+      <Navbar onSearch={handleSearch} onFilterChange={handleFilterChange}/>
       <Slideshow/>
-      <Recipecards searchTerm={searchTerm} filter={filter}/>
+      <Recipecards searchTerm={searchTerm} selectedFilter={selectedFilter}/>
       <Footer/>
       
       
