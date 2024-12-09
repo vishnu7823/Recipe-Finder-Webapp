@@ -1,101 +1,84 @@
-import React ,{useEffect, useState}from 'react'
-import { HeartOutlined, StarOutlined } from "@ant-design/icons"; 
+import React, { useEffect, useState } from "react";
+import { HeartOutlined, StarOutlined } from "@ant-design/icons";
 import "./Recipecards.css";
 
+const Recipecards = ({ searchTerm, selectedFilter }) => {
+  const [recipes, setRecipes] = useState([]);
+  const [visiblerecipes, setVisiblerecipes] = useState(12);
+  const [expanded, setIsExpanded] = useState(false);
 
-
-const Recipecards = ({searchTerm,selectedFilter}) => {
-
-    const[recipes,setRecipes] = useState([]);
-    const[visiblerecipes,setVisiblerecipes] = useState(12);
-    const[expanded, setIsExpanded] = useState(false);
-    // const[searchTerm,setSearchTerm] = useState("");
-    // const[filter,setFilter] = useState("");
-
-    const toogleloadmore = ()=>{
-
-        if(expanded){
-            setVisiblerecipes(12);
-            setIsExpanded(false);
-            
-        }
-        else{
-            setVisiblerecipes(recipes.length);
-            setIsExpanded(true);
-        }
-
-
-       
+  const toggleLoadMore = () => {
+    if (expanded) {
+      setVisiblerecipes(12);
+      setIsExpanded(false);
+    } else {
+      setVisiblerecipes(recipes.length);
+      setIsExpanded(true);
     }
+  };
 
-    useEffect(()=>{
-        const fetchrecipe = async()=>{
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      const baseUrl = "https://api.spoonacular.com/recipes/complexSearch";
+      const apiKey = "ea8ebe71cf7940ca870e7c9f354c617f";
+      const cuisine = "Indian";
+      const number = 50;
 
-            const baseUrl = "https://api.spoonacular.com/recipes/complexSearch"
-            const apiKey = "471130de01fe49f58eeeacc76c60d71e"
+      // Include selected filter and search term in the query
+      const dietQuery =
+        selectedFilter !== "all" ? `&diet=${encodeURIComponent(selectedFilter)}` : "";
+      const searchQuery = searchTerm ? `&query=${encodeURIComponent(searchTerm)}` : "";
 
-            const filterQuery = selectedFilter !== "all" ? `&diet=${selectedFilter}` : " ";
-            const searchQuery = searchTerm ? `&query=${searchTerm}` : "";
+      try {
+        const response = await fetch(
+          `${baseUrl}?cuisine=${cuisine}&number=${number}&addRecipeInformation=true${dietQuery}${searchQuery}&apiKey=${apiKey}`
+        );
+        const data = await response.json();
+        setRecipes(data.results || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setRecipes([]);
+      }
+    };
 
-            try{
-                
-                const response = await fetch(
-                    `${baseUrl}?cuisine=Indian&number=50${filterQuery}${searchQuery}&apiKey=${apiKey}`
-                );
-                const data = await response.json();
-               
-                setRecipes(data.results || []);
-            }
-            catch(error){
-                console.log("error fetching data",error);
-                setRecipes([]);
-            }
-        };
-        fetchrecipe();
-    },[searchTerm,selectedFilter]);
+    fetchRecipe();
+  }, [searchTerm, selectedFilter]); // Refetch when searchTerm or selectedFilter changes
+
   return (
-    <div className='full-page'>
-        { recipes.length>0 ? (recipes.slice(0,visiblerecipes).map((recipe,index)=>(
-            <div className='grid-card' key={index}>
-                <img src={recipe.image} className='img'/>
-                <div className='details'>
-                    <h1 className='text'>{recipe.title}</h1>
-                    <p className='time'>Cooking Time: {recipe.readyinminutes || "N/A"} mins</p>
-
-                    <div className='icons'>
-                        <span className='like'>
-                          <HeartOutlined/> {recipe.aggregateLikes || "0" }
-                        </span>
-
-                        <span className='rating'>
-                           <StarOutlined/> {recipe.spoonacularScore || "N/A"}
-                        </span>
-                       
-
-                    </div>
-
-                </div>
-
+    <div className="full-page">
+      {recipes.length > 0 ? (
+        recipes.slice(0, visiblerecipes).map((recipe, index) => (
+          <div className="grid-card" key={index}>
+            <img src={recipe.image} className="img" alt={recipe.title} />
+            <div className="details">
+              <h1 className="text">{recipe.title}</h1>
+              <p className="time">
+                Cooking Time: {recipe.readyInMinutes || "N/A"} mins
+              </p>
+              <div className="icons">
+                <span className="like">
+                  <HeartOutlined /> {recipe.aggregateLikes || "0"}
+                </span>
+                <span className="rating">
+                  <StarOutlined /> {recipe.spoonacularScore || "N/A"}
+                </span>
+              </div>
             </div>
-        ) )) : ( 
-            <p>Loading Recipes please wait .....</p>
-        )}
+          </div>
+        ))
+      ) : (
+        <p>No recipes found. Try adjusting your search or filters.</p>
+      )}
 
-                         {recipes.length > 12 && (
+      {recipes.length > 12 && (
         <div className="btn">
-          <button className="load-more" onClick={toogleloadmore}>
-            {expanded ? 'Close' : 'Load More'}
+          <button className="load-more" onClick={toggleLoadMore}>
+            {expanded ? "Close" : "Load More"}
           </button>
         </div>
-            )}
-
-
-
-                           
-                 
-      
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Recipecards;
